@@ -1,0 +1,17 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<form method="POST" hx-post="{% url 'branch:delete' object.id %}" hx-refresh="true" hx-swap="outer">
+    {% csrf_token %}
+    <div class="modal-header">
+        <h4 class="modal-title">{% translate "Delete Branch" %}</h4>
+    </div>
+    <div class="modal-body">
+        Are you sure you want to delete this branch <b>{{branch.name}}</b>? This action cannot be undone.
+        Deleting this branch will also delete all the associated data.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{% translate "Close" %}</button>
+        <button type="submit" class="p-2 btn btn-primary">{% translate "Submit" %}</button>
+    </div>
+</form>

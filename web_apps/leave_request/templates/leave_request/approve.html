@@ -1,0 +1,45 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content">
+        <div class="page-inner">
+			<div class="container">
+            <div class="row justify-content-center form-bg-image">
+                    <div class="col-12 d-flex align-items-center justify-content-center">
+                        <div class="signin-inner my-3 my-lg-0 bg-white shadow-soft border rounded border-light">
+                            <center>
+                                {% if object.status == 1 %}
+                                <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_agw0Fx.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop  autoplay>
+                                </lottie-player>
+                                {%else%}
+                                <lottie-player src="https://assets1.lottiefiles.com/private_files/lf30_oi2m5nus.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop  autoplay>
+                                </lottie-player>
+
+                                {%endif%}
+
+                            </center>
+
+                            <div>
+                                {% include 'includes/form.html' %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+{% endblock javascripts %}

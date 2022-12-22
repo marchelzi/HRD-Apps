@@ -1,0 +1,16 @@
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" id="modal-content">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function show_modal(url) {
+        htmx.ajax('GET', url, '#modal-content')
+        setTimeout(function () {
+            $('#modal').modal('show')
+        }, 10);
+    }
+</script>

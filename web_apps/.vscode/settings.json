@@ -1,0 +1,7 @@
+// disable auto formatting html
+{
+    "html.format.enable": false,
+    "prettier.disableLanguages": [
+        "html"
+    ],
+}

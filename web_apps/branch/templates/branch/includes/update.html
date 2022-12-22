@@ -1,0 +1,16 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<form method="POST" hx-post="{% url 'branch:update' object.id %}" hx-refresh="true" hx-swap="outer">
+    {% csrf_token %}
+    <div class="modal-header">
+        <h4 class="modal-title">{% translate "Update Branch" %}</h4>
+    </div>
+    <div class="modal-body">
+        {% include 'includes/form.html' %}
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{% translate "Close" %}</button>
+        <button type="submit" class="p-2 btn btn-primary">{% translate "Submit" %}</button>
+    </div>
+</form>

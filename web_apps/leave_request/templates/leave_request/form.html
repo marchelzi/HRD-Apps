@@ -1,0 +1,35 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<form method="POST" hx-post="{% url 'leave_request:leave_request_create' %}" hx-refresh="true" hx-swap="outer">
+    {% csrf_token %}
+    <div class="modal-header">
+        <h4 class="modal-title">{{title}}</h4>
+    </div>
+    <div class="modal-body">
+        {% include 'includes/form.html' %}
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{% translate "Close" %}</button>
+        <button type="submit" class="p-2 btn btn-primary">{% translate "Submit" %}</button>
+    </div>
+</form>
+
+<script>
+    // max date end this month
+    $('#date_range').flatpickr({
+        minDate: new Date().fp_incr(7),
+        mode: "multiple",
+        dateFormat: "d-m-Y",
+        conjunction: " - ",
+        maxDate: new Date().fp_incr(37),
+        disableMobile: "true",
+        mode: "range",
+        // allow select two dates
+        onChange: function (selectedDates, dateStr, instance) {
+            console.log(selectedDates);
+        },
+
+    });
+
+</script>

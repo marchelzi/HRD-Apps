@@ -1,0 +1,168 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content">
+	<div class="panel-header bg-primary-gradient">
+	  <div class="page-inner py-5">
+		<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+		  <div>
+			<h2 class="text-white pb-2 fw-bold">Dashboard</h2>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<div class="page-inner mt--5">
+		<div class="row">
+			<div class="col">
+				<div class="card">
+				  <div class="card-body border-bottom">
+					  <div class="text-center">
+						<h4 class="card-title text-center">Total Branch</h4>
+						<h2 class="text-primary fw-bold">{{branch_data.total_branch}}</h2>
+						<p class="text-muted">This is the total number of branch</p>
+					  </div>
+				  </div>
+				</div>
+			  </div>
+			<div class="col">
+				<div class="card">
+				  <div class="card-body border-bottom">
+					  <div class="text-center">
+						<h4 class="card-title text-center">Total HQ</h4>
+						<h2 class="text-primary fw-bold">{{branch_data.total_headquarter}}</h2>
+						<p class="text-muted">This is the total number of HeadQuarter</p>
+					  </div>
+				  </div>
+				</div>
+			  </div>
+		  </div>
+
+	  <div class="row">
+		<div class="col">
+			<div class="card">
+			  <div class="card-body border-bottom">
+				  <div class="text-center">
+					<h4 class="card-title text-center">Total Employee</h4>
+					<h2 class="text-primary fw-bold">{{employee_data.permanent_employee}}</h2>
+					<p class="text-muted">This is the total number of permanent employee</p>
+				  </div>
+			  </div>
+			</div>
+		  </div>
+		<div class="col">
+			<div class="card">
+			  <div class="card-body border-bottom">
+				  <div class="text-center">
+					<h4 class="card-title text-center">Total Employee</h4>
+					<h2 class="text-primary fw-bold">{{employee_data.contract_employee}}</h2>
+					<p class="text-muted">This is the total number of contract employee</p>
+				  </div>
+			  </div>
+			</div>
+		  </div>
+		<div class="col">
+		  <div class="card">
+			<div class="card-body border-bottom">
+				<div class="text-center">
+				  <h4 class="card-title text-center">Total Employee</h4>
+				  <h2 class="text-primary fw-bold">{{employee_data.total_employee}}</h2>
+				  <p class="text-muted">This is the total number of employee</p>
+				</div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col">
+			<div class="card">
+			  <div class="card-body border-bottom">
+				  <div class="text-center">
+					<h4 class="card-title text-center">Total Document</h4>
+					<h2 class="text-primary fw-bold">{{document_data.total_document_approved}}</h2>
+					<p class="text-muted">This is the total number of Approved/Canceled Document</p>
+				  </div>
+			  </div>
+			</div>
+		  </div>
+		<div class="col">
+			<div class="card">
+			  <div class="card-body border-bottom">
+				  <div class="text-center">
+					<h4 class="card-title text-center">Total Document</h4>
+					<h2 class="text-primary fw-bold">{{document_data.total_document_pending}}</h2>
+					<p class="text-muted">This is the total number of Pending Document</p>
+				  </div>
+			  </div>
+			</div>
+		  </div>
+		<div class="col">
+		  <div class="card">
+			<div class="card-body border-bottom">
+				<div class="text-center">
+				  <h4 class="card-title text-center">Total Document</h4>
+				  <h2 class="text-primary fw-bold">{{document_data.total_document}}</h2>
+				  <p class="text-muted">This is the total number of Generated Document This Year</p>
+				</div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col">
+			<div class="card">
+			  <div class="card-body border-bottom">
+				  <div class="text-center">
+					<h4 class="card-title text-center">Total Leave</h4>
+					<h2 class="text-primary fw-bold">{{leave_request_data.total_leave_request_approved}}</h2>
+					<p class="text-muted">This is the total number of Approved/Rejected/Document</p>
+				  </div>
+			  </div>
+			</div>
+		  </div>
+		<div class="col">
+			<div class="card">
+			  <div class="card-body border-bottom">
+				  <div class="text-center">
+					<h4 class="card-title text-center">Total Leave</h4>
+					<h2 class="text-primary fw-bold">{{leave_request_data.total_leave_request_pending}}</h2>
+					<p class="text-muted">This is the total number of Pending Leave</p>
+				  </div>
+			  </div>
+			</div>
+		  </div>
+		<div class="col">
+		  <div class="card">
+			<div class="card-body border-bottom">
+				<div class="text-center">
+				  <h4 class="card-title text-center">Total Leave</h4>
+				  <h2 class="text-primary fw-bold">{{leave_request_data.total_leave_request}}</h2>
+				  <p class="text-muted">This is the total number of Leave Taken This Year</p>
+				</div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+
+	</div>
+	</div>
+	</div>
+
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+
+
+
+{% endblock javascripts %}

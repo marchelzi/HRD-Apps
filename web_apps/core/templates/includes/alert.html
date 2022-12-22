@@ -1,0 +1,39 @@
+{% if messages %}
+<script>
+    var notyf = new Notyf({
+    types: [
+    {
+      type: 'warning',
+      background: 'orange',
+      icon: {
+        className: 'material-icons',
+        tagName: 'i',
+        text: 'warning'
+      }
+    },
+
+    {
+    type: 'info',
+    background: 'dodgerblue',
+    icon: {
+        className: 'material-icons',
+        tagName: 'i',
+        text: 'info'
+    }
+    },
+    {
+      type: 'danger',
+      background: 'indianred',
+      dismissible: true
+    }
+  ]
+    });
+    {% for message in messages %}
+    notyf.open({
+        type: '{{message.tags}}',
+        message: '{{ message }}'
+    });
+    {% endfor %}
+</script>
+
+{% endif %}

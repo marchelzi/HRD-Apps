@@ -1,0 +1,66 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content">
+        <div class="page-inner">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Branch</h4>
+                            <div class="btn-toolbar mb-2 mb-md-0">
+                                <a href="#" hx-get="{% url 'branch:create' %}" hx-target="#modal-content" hx-trigger="click"
+                                    _="on htmx:afterOnLoad wait 10ms then call $('#modal').modal('show')"
+                                    class="btn btn-sm btn-primary d-inline-flex align-items-center">
+                                    <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6">
+                                        </path>
+                                    </svg>
+                                    Add+
+                                </a>
+                            </div>
+
+
+						</div>
+						<div class="card-body">
+                            <div class="table">
+                                <table style="width:100%" id="table"></table>
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script language="javascript">
+
+    $(document).ready(function() {
+        AjaxDatatableViewUtils.initialize_table(
+            $('#table'),
+            "{% url 'branch:branch_ajax' %}",
+            {
+                // extra_options (example)
+                processing: true,
+            }, {
+                // extra_data
+                // ...
+            },
+        );
+    });
+
+</script>
+{% endblock javascripts %}
