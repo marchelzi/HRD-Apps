@@ -1,4 +1,3 @@
-
 # HRD Management App
 
 This Django app allows HRD departments to manage employee, branch, and headquarter information, as well as create documents and leave requests.
@@ -42,3 +41,16 @@ You can then access the app at http://localhost:8000/.
 
 I hope this helps! Let me know if you have any questions.
 
+## Running the project using Docker
+
+To run the project using Docker, you need to have Docker installed on your machine. You can download Docker from [here](https://www.docker.com/products/docker-desktop).
+
+To run the project, use the following command:
+
+    docker-compose up
+
+After the project is running, you need to create a superuser. To do this, run the following command:
+
+    docker-compose exec -ti <container_name> python web_app/manage.py createsuperuser
+
+You can then access the app at http://localhost:8020/.
