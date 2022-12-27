@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  web_aio:
+    build: .
+    ports:
+      - "8020:8020"
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - FULL_VER=1
+  redis:
+    image: "redis:alpine"
