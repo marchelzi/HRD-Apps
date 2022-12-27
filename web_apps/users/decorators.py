@@ -21,3 +21,23 @@ def is_authenticated(f):
             return f(request, *args, **kwargs)
 
     return wrapped
+
+
+def unauthenticated(f):
+    wraps(f)
+
+    def wrapped(request, *args, **kwargs):
+        """Redirect to home if user is authenticated.
+
+        Args:
+            request ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        if request.user.is_authenticated:
+            return HttpResponseRedirect("/")
+        else:
+            return f(request, *args, **kwargs)
+
+    return wrapped
