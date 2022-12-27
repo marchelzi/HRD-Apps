@@ -10,8 +10,8 @@ COPY requirements/requirements.txt /opt/app/requirements.txt
 WORKDIR /opt/app
 RUN pip install wheel
 RUN pip install -r requirements.txt
-COPY vorman /opt/app/web_apps/
-COPY docker-entry-point/start-server.sh /opt/app/
+COPY web_apps /opt/app/web_apps/
+COPY docker-entry-point/start_server.sh /opt/app/
 RUN chown -R www-data:www-data /opt/app
 RUN apt-get install supervisor -y
 COPY supervisor-config/task_celery.conf /etc/supervisor/conf.d/task_celery.conf
@@ -20,6 +20,6 @@ RUN mkdir /run/daphne/
 RUN mkdir -p /var/log/celery/
 RUN mkdir -p /var/log/gunicorn/
 EXPOSE 8010
-RUN chmod +x /opt/app/start-server.sh
-ENTRYPOINT ["/opt/app/start-server.sh"]
+RUN chmod +x /opt/app/start_server.sh
+ENTRYPOINT ["/opt/app/start_server.sh"]
 CMD ["supervisord", "-n"]
