@@ -181,3 +181,10 @@ MESSAGE_TAGS = {message_constants.DEBUG: 'debug',
                 message_constants.SUCCESS: 'success',
                 message_constants.WARNING: 'warning',
                 message_constants.ERROR: 'danger', }
+
+# CELERY
+CELERY_TIMEZONE = "Asia/Jakarta"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_BROKER_URL = os.getenv(
+    "CELERY_BROKER_URL", "redis://192.168.109.41:6379/0")
