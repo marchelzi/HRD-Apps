@@ -24,12 +24,14 @@ CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-d*p2!2f&d44vj+xc&lz5dm#k9^!m%w4ag^$fqo_cs3$hroufa%'
+SECRET_KEY = os.getenv(
+    'SECRET_KEY',
+    'django-insecure-d*p2!2f&d44vj+xc&lz5dm#k9^!m%w4ag^$fqo_cs3$hroufa%')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.getenv("DEBUG", True))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
