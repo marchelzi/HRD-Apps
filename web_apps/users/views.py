@@ -19,7 +19,6 @@ from users.decorators import is_authenticated
 
 # Create your views here.
 
-@method_decorator(is_authenticated, name="dispatch")
 class LoginView(FormView):
     form_class = LoginForm
     success_url = reverse_lazy("dashboard:index")
