@@ -14,14 +14,19 @@ from django.core.signing import Signer
 from django.contrib import messages
 from document import messages as document_messages
 from django.template.response import TemplateResponse
+from django.utils.decorators import method_decorator
+from users.decorators import is_authenticated
+
+
+
 
 # Create your views here.
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class DocumentHomePage(TemplateView):
     template_name = 'document/index.html'
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class DocumentAjaxDatatable(AjaxDatatableView):
     model = Document
     length_menu = [10, 25, 50, 100]
@@ -90,7 +95,7 @@ class DocumentAjaxDatatable(AjaxDatatableView):
         </div>
         """
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class DocumentCreateView(CreateView):
     model = Document
     form_class = DocumentCreateForm
@@ -113,7 +118,7 @@ class DocumentCreateView(CreateView):
         self.set_message()
         return HttpResponseClientRefresh()
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class DocumentUpdateView(UpdateView):
     model = Document
     fields = ('description', )
@@ -130,7 +135,7 @@ class DocumentUpdateView(UpdateView):
         form.save()
         return HttpResponseClientRefresh()
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class DocumentGenerator(View):
 
     def get_queryset(self, **kwargs):
@@ -155,7 +160,7 @@ class DocumentGenerator(View):
                                  ))
             return HttpResponseRedirect(reverse_lazy('document:document'))
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class DocumentInfoToPIC(View):
     success_url = reverse_lazy('document:document')
 
@@ -174,7 +179,7 @@ class DocumentInfoToPIC(View):
                                  ))
         return HttpResponseRedirect(self.success_url)
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class DocumentApproveView(View):
     success_url = reverse_lazy('document:document')
     template_name = 'document/approve.html'

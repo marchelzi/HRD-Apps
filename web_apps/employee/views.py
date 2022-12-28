@@ -10,14 +10,16 @@ from django.views.generic import (FormView, TemplateView)
 from django.contrib import messages
 from employee.models import Employee, Position
 from employee import messagess as employee_messages
+from django.utils.decorators import method_decorator
+from users.decorators import is_authenticated
 
 # Create your views here.
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class PositionHomePage(TemplateView):
     template_name = 'position/index.html'
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class PositionAjaxDatatable(AjaxDatatableView):
     model = Position
     length_menu = [10, 25, 50, 100]
@@ -65,7 +67,7 @@ class PositionAjaxDatatable(AjaxDatatableView):
             }
         )
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class PositionCreateView(CreateView):
     model = Position
     fields = '__all__'
@@ -89,7 +91,7 @@ class PositionCreateView(CreateView):
         self.set_message()
         return HttpResponseClientRefresh()
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class PositionUpdateView(UpdateView):
     model = Position
     fields = '__all__'
@@ -113,7 +115,7 @@ class PositionUpdateView(UpdateView):
         self.set_message()
         return HttpResponseClientRefresh()
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class PositionDeleteView(DeleteView):
     model = Position
     success_url = reverse_lazy('employee:position')
@@ -138,11 +140,11 @@ class PositionDeleteView(DeleteView):
         self.object.delete()
         return HttpResponseClientRefresh()
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class EmployeeHomePage(TemplateView):
     template_name = 'employee/index.html'
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class EmployeeAjaxDatatable(AjaxDatatableView):
     model = Employee
     length_menu = [10, 25, 50, 100]
@@ -219,7 +221,7 @@ class EmployeeAjaxDatatable(AjaxDatatableView):
         </div>
         """
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class EmployeeCreateView(CreateView):
     model = Employee
     form_class = EmployeeForm
@@ -241,7 +243,7 @@ class EmployeeCreateView(CreateView):
         self.set_message(form)
         return super(EmployeeCreateView, self).form_valid(form)
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class EmployeeUpdateView(UpdateView):
     model = Employee
     form_class = EmployeeForm
@@ -263,7 +265,7 @@ class EmployeeUpdateView(UpdateView):
         self.set_message()
         return super(EmployeeUpdateView, self).form_valid(form)
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class EmployeeDeleteView(DeleteView):
     model = Employee
     success_url = reverse_lazy('employee:employee')
@@ -289,7 +291,7 @@ class EmployeeDeleteView(DeleteView):
         self.object.delete()
         return HttpResponseClientRefresh()
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class EmployeeDetailView(FormView):
     form_class = EmployeeDetailForm
     template_name = 'employee/includes/create_update.html'
@@ -303,3 +305,4 @@ class EmployeeDetailView(FormView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Employee Detail'
         return context
+

@@ -12,10 +12,14 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import (FormView, TemplateView)
 from ajax_datatable.views import AjaxDatatableView
 from django_htmx.http import HttpResponseClientRefresh
+from django.utils.decorators import method_decorator
+from users.decorators import is_authenticated
+
+
 
 # Create your views here.
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class LoginView(FormView):
     form_class = LoginForm
     success_url = reverse_lazy("dashboard:index")
@@ -45,11 +49,11 @@ def LogoutView(request):
     logout(request)
     return HttpResponseRedirect(reverse_lazy("users:login"))
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class UserIndexView(TemplateView):
     template_name = 'users/index.html'
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class UserAjaxDatatable(AjaxDatatableView):
     model = User
     length_menu = [10, 25, 50, 100]
@@ -89,7 +93,7 @@ class UserAjaxDatatable(AjaxDatatableView):
         </div>
         """
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class UserCreateView(CreateView):
     model = User
     form_class = UserCreateForm
@@ -114,7 +118,7 @@ class UserCreateView(CreateView):
         self.set_message()
         return HttpResponseClientRefresh()
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class UserUpdateView(UpdateView):
     model = User
     form_class = UserUpdateForm
@@ -138,7 +142,7 @@ class UserUpdateView(UpdateView):
         super().form_valid(form)
         return HttpResponseClientRefresh()
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class UserChangePasswordView(UpdateView):
     model = User
     form_class = UserChangePasswordForm
@@ -162,7 +166,7 @@ class UserChangePasswordView(UpdateView):
         super().form_valid(form)
         return HttpResponseClientRefresh()
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class UserDeleteView(DeleteView):
     model = User
     template_name = 'crud/delete.html'
