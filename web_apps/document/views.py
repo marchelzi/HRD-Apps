@@ -179,7 +179,7 @@ class DocumentInfoToPIC(View):
                                  ))
         return HttpResponseRedirect(self.success_url)
 
-@method_decorator(is_authenticated, name="dispatch")
+
 class DocumentApproveView(View):
     success_url = reverse_lazy('document:document')
     template_name = 'document/approve.html'
