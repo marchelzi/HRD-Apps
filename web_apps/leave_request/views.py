@@ -19,13 +19,12 @@ from django.utils.decorators import method_decorator
 from users.decorators import is_authenticated
 
 
-
-
 # Create your views here.
 
 @method_decorator(is_authenticated, name="dispatch")
 class LeaveRequestHomeView(TemplateView):
     template_name = 'leave_request/index.html'
+
 
 @method_decorator(is_authenticated, name="dispatch")
 class LeaveRequestAjaxDatatable(AjaxDatatableView):
@@ -90,6 +89,7 @@ class LeaveRequestAjaxDatatable(AjaxDatatableView):
 
         return row
 
+
 @method_decorator(is_authenticated, name="dispatch")
 class LeaveRequestCreateView(FormView):
     template_name = 'leave_request/form.html'
@@ -104,6 +104,7 @@ class LeaveRequestCreateView(FormView):
     def form_valid(self, form):
         form.save()
         return HttpResponseClientRefresh()
+
 
 @method_decorator(is_authenticated, name="dispatch")
 class LeaveRequestDetailView(FormView):
@@ -121,6 +122,7 @@ class LeaveRequestDetailView(FormView):
         context['title'] = 'Leave Request Detail'
         return context
 
+
 @method_decorator(is_authenticated, name="dispatch")
 class LeaveInfoToPIC(View):
     success_url = reverse_lazy('leave_request:leave_request')
@@ -130,8 +132,8 @@ class LeaveInfoToPIC(View):
 
     def get(self, request, *args, **kwargs):
         leave_request = self.get_queryset(kwargs.get('pk'))
-        tools.send_document_to_pic(
-            leave_request, self.request.build_absolute_uri('/'))
+        tools.send_document_to_pic.apply_async(args=(
+            leave_request.id, self.request.build_absolute_uri('/')))
         return HttpResponseRedirect(self.success_url)
 
 

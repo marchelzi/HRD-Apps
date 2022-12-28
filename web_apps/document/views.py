@@ -18,13 +18,12 @@ from django.utils.decorators import method_decorator
 from users.decorators import is_authenticated
 
 
-
-
 # Create your views here.
 
 @method_decorator(is_authenticated, name="dispatch")
 class DocumentHomePage(TemplateView):
     template_name = 'document/index.html'
+
 
 @method_decorator(is_authenticated, name="dispatch")
 class DocumentAjaxDatatable(AjaxDatatableView):
@@ -95,6 +94,7 @@ class DocumentAjaxDatatable(AjaxDatatableView):
         </div>
         """
 
+
 @method_decorator(is_authenticated, name="dispatch")
 class DocumentCreateView(CreateView):
     model = Document
@@ -118,6 +118,7 @@ class DocumentCreateView(CreateView):
         self.set_message()
         return HttpResponseClientRefresh()
 
+
 @method_decorator(is_authenticated, name="dispatch")
 class DocumentUpdateView(UpdateView):
     model = Document
@@ -134,6 +135,7 @@ class DocumentUpdateView(UpdateView):
     def form_valid(self, form):
         form.save()
         return HttpResponseClientRefresh()
+
 
 @method_decorator(is_authenticated, name="dispatch")
 class DocumentGenerator(View):
@@ -160,6 +162,7 @@ class DocumentGenerator(View):
                                  ))
             return HttpResponseRedirect(reverse_lazy('document:document'))
 
+
 @method_decorator(is_authenticated, name="dispatch")
 class DocumentInfoToPIC(View):
     success_url = reverse_lazy('document:document')
@@ -170,8 +173,8 @@ class DocumentInfoToPIC(View):
     def get(self, request, *args, **kwargs):
         obj = self.get_queryset(**kwargs)
         if obj.employee.branch.person_in_charge is not None:
-            tools.send_document_to_pic(
-                obj, self.request.build_absolute_uri('/'))
+            tools.send_document_to_pic.apply_async(args=(
+                obj.id, self.request.build_absolute_uri('/')))
         else:
             messages.add_message(self.request, messages.ERROR,
                                  document_messages.DOCUMENT_PIC_NOT_FOUND_MESSAGES_WEB.format(
