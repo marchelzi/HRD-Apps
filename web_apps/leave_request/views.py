@@ -134,7 +134,7 @@ class LeaveInfoToPIC(View):
             leave_request, self.request.build_absolute_uri('/'))
         return HttpResponseRedirect(self.success_url)
 
-@method_decorator(is_authenticated, name="dispatch")
+
 class LeaveApproveView(View):
     success_url = reverse_lazy('leave_request:leave_request')
     template_name = 'leave_request/approve.html'
