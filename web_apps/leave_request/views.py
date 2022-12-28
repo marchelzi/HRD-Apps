@@ -15,14 +15,19 @@ from leave_request.models import LeaveDetail, LeaveRequest
 from django.core.signing import Signer
 from django.template.response import TemplateResponse
 from django.contrib import messages
+from django.utils.decorators import method_decorator
+from users.decorators import is_authenticated
+
+
+
 
 # Create your views here.
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class LeaveRequestHomeView(TemplateView):
     template_name = 'leave_request/index.html'
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class LeaveRequestAjaxDatatable(AjaxDatatableView):
     model = LeaveRequest
     length_menu = [10, 25, 50, 100]
@@ -85,7 +90,7 @@ class LeaveRequestAjaxDatatable(AjaxDatatableView):
 
         return row
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class LeaveRequestCreateView(FormView):
     template_name = 'leave_request/form.html'
     form_class = LeaveRequestForm
@@ -100,7 +105,7 @@ class LeaveRequestCreateView(FormView):
         form.save()
         return HttpResponseClientRefresh()
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class LeaveRequestDetailView(FormView):
     template_name = 'leave_request/detail.html'
     form_class = LeaveDetailForm
@@ -116,7 +121,7 @@ class LeaveRequestDetailView(FormView):
         context['title'] = 'Leave Request Detail'
         return context
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class LeaveInfoToPIC(View):
     success_url = reverse_lazy('leave_request:leave_request')
 
