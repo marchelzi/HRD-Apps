@@ -8,14 +8,18 @@ from django.template.loader import render_to_string
 from django_htmx.http import HttpResponseClientRefresh
 from django.contrib import messages
 from branch import messages as branch_messages
+from django.utils.decorators import method_decorator
+from users.decorators import is_authenticated
+
+
 
 # Create your views here.
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class BranchHomePage(TemplateView):
     template_name = 'branch/index.html'
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class BranchAjaxDatatable(AjaxDatatableView):
     model = Branch
     length_menu = [10, 25, 50, 100]
@@ -94,7 +98,7 @@ class BranchAjaxDatatable(AjaxDatatableView):
             context={'pk': obj.pk}
         )
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class BranchCreateView(CreateView):
     model = Branch
     fields = '__all__'
@@ -116,7 +120,7 @@ class BranchCreateView(CreateView):
 
         return HttpResponseClientRefresh()
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class BranchUpdateView(UpdateView):
     model = Branch
     fields = '__all__'
@@ -137,7 +141,7 @@ class BranchUpdateView(UpdateView):
         self.set_message()
         return HttpResponseClientRefresh()
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class BranchDeleteView(DeleteView):
     model = Branch
     success_url = reverse_lazy('branch:branch')
@@ -159,11 +163,11 @@ class BranchDeleteView(DeleteView):
         self.object.delete()
         return HttpResponseClientRefresh()
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class HeadQuarterPage(TemplateView):
     template_name = 'headquarter/index.html'
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class HeadQuarterAjaxDatatable(AjaxDatatableView):
     model = HeadQuarter
     length_menu = [10, 25, 50, 100]
@@ -207,7 +211,7 @@ class HeadQuarterAjaxDatatable(AjaxDatatableView):
             }
         )
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class HeadQuarterCreateView(CreateView):
     model = HeadQuarter
     fields = '__all__'
@@ -229,7 +233,7 @@ class HeadQuarterCreateView(CreateView):
         self.set_message()
         return HttpResponseClientRefresh()
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class HeadQuarterUpdateView(UpdateView):
     model = HeadQuarter
     fields = '__all__'
@@ -253,7 +257,7 @@ class HeadQuarterUpdateView(UpdateView):
         self.set_message()
         return HttpResponseClientRefresh()
 
-
+@method_decorator(is_authenticated, name="dispatch")
 class HeadQuarterDeleteView(DeleteView):
     model = HeadQuarter
     success_url = reverse_lazy('branch:headquarter')
