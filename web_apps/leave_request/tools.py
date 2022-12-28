@@ -2,10 +2,12 @@ from core.requester import mblast_sender
 from leave_request import messages as leave_request_messages
 from leave_request.models import LeaveRequest
 from core import utils as core_utils
+from celery import shared_task
 
 
-def send_document_to_pic(obj, absolute_url):
-
+@shared_task(name='send_leave_request_to_pic')
+def send_document_to_pic(obj_id, absolute_url):
+    obj = LeaveRequest.objects.get(id=obj_id)
     approve_shorter = core_utils.shorten_url(
         absolute_url + obj.get_approve_url(LeaveRequest.APPROVED))
 
