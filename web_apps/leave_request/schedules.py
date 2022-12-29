@@ -20,7 +20,7 @@ def reset_leave_quota():
                 balance=12
             )
         else:
-            last_balance = k.leave_balances.balance
+            last_balance = employee.leave_balances.balance
             last_balance = 7 if last_balance > 7 else last_balance
             employee.leave_balances.total_balance = 12 + last_balance
             employee.leave_balances.balance = employee.leave_balances.total_balance
