@@ -56,9 +56,6 @@ class LeaveRequestForm(forms.Form):
                 'Permohonan tidak dapat diproses. Permohonan cuti yang diajukan pada tanggal {} belum disetujui. Mohon tunggu sampai permohonan cuti disetujui/ditolak/dibatalkan'.format(
                     pending_leave.first().created_at.strftime('%d-%m-%Y')))
 
-    def check_is_user_pic(self, user: Employee):
-        user
-
     def clean(self):
         cleaned_data = super().clean()
         user = self.cleaned_data.get('employee', None)
