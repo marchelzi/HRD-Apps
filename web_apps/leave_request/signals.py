@@ -9,31 +9,33 @@ from leave_request.models import LeaveBalance,  LeaveDetail, LeaveRequest
 def update_leave_balance(sender, instance, created, **kwargs):
     # get current date
     dt_now = timezone.now().date()
-    if instance.joint_date:
-        already_one_year = dt_now - instance.joint_date
-        if not hasattr(instance, 'leave_balances'):
-            if already_one_year.days >= 365:
-                LeaveBalance.objects.create(
-                    employee=instance,
-                    total_balance=12,
-                    balance=12
-                )
-            else:
-                LeaveBalance.objects.create(
-                    employee=instance,
-                    total_balance=0,
-                    balance=0
-                )
+
+    if not instance.joint_date:
+        return
+
+    already_one_year = dt_now - instance.joint_date
+    if not hasattr(instance, 'leave_balances'):
+        if already_one_year.days >= 365:
+            LeaveBalance.objects.create(
+                employee=instance,
+                total_balance=12,
+                balance=12
+            )
         else:
-            if already_one_year.days <= 365:
-                instance.leave_balances.total_balance = 0
-                instance.leave_balances.balance = 0
-                instance.leave_balances.save()
-            else:
-                if instance.leave_balances.total_balance == 0:
-                    instance.leave_balances.total_balance = 12
-                    instance.leave_balances.balance = 12
-                    instance.leave_balances.save()
+            LeaveBalance.objects.create(
+                employee=instance,
+                total_balance=0,
+                balance=0
+            )
+    else:
+        if already_one_year.days <= 365:
+            instance.leave_balances.total_balance = 0
+            instance.leave_balances.balance = 0
+            instance.leave_balances.save()
+        elif instance.leave_balances.total_balance == 0:
+            instance.leave_balances.total_balance = 12
+            instance.leave_balances.balance = 12
+            instance.leave_balances.save()
 
 
 @receiver(post_save, sender='leave_request.LeaveRequest')
