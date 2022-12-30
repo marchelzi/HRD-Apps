@@ -109,9 +109,8 @@ class DocumentCreateView(CreateView):
         return context
 
     def set_message(self):
-        messages.add_message(self.request, messages.INFO, document_messages.DOCUMENT_CREATED_MESSAGES_WEB.format(
-            self.object.representation
-        ))
+        messages.add_message(self.request, messages.INFO,
+                             document_messages.DOCUMENT_CREATED_MESSAGES_WEB)
 
     def form_valid(self, form):
         self.object = form.save()
