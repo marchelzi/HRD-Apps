@@ -1,7 +1,9 @@
 from django.conf import settings
 import requests
+from core.circuit_breaker import circuit_breaker
 
 
+@circuit_breaker
 def mblast_sender(message, nomor_telepon):
     AUTH_HEADERS = {"AUTHORIZATION": f"{settings.MBLAST_CLIENT_APIKEY}"}
     req_data = {"client_module": 0}
