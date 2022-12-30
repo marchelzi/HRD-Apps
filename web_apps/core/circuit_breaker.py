@@ -26,7 +26,7 @@ class CircuitBreaker:
         self.exception = exception
         self.failure_threshold = failure_threshold
         self.delay = delay
-        self.state = State.OPEN
+        self.state = State.CLOSED
         self.failure_count = 0
         self.last_failure_time = None
 
@@ -105,5 +105,5 @@ class APICircuitBreaker:
 
 def circuit_breaker(func):
     def wrapper(*args, **kwargs):
-        return func(*args, **kwargs)
+        return APICircuitBreaker()(func)(*args, **kwargs)
     return wrapper
